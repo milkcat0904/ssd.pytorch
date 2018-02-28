@@ -21,6 +21,7 @@ A [PyTorch](http://pytorch.org/) implementation of [Single Shot MultiBox Detecto
 
 ## Enironment
 - 安装或者升级最新版pytorch Install [PyTorch](http://pytorch.org/) 
+	python 3以上
 - 安装可视化模块visdom(VOC数据集可用)
 
 	We now support [Visdom](https://github.com/facebookresearch/visdom) for real-time loss visualization during training! 
@@ -39,7 +40,7 @@ A [PyTorch](http://pytorch.org/) implementation of [Single Shot MultiBox Detecto
 
 ```Shell
 # specify a directory for dataset to be downloaded into, else default is ~/data/
-	$ sh data/scripts/VOC2007.sh download path
+	$ sh data/scripts/VOC2007.sh DWONLOAD_PATH
 下载数据好后会自动删除压缩文件
 ```
 
@@ -47,36 +48,35 @@ A [PyTorch](http://pytorch.org/) implementation of [Single Shot MultiBox Detecto
 
 ```Shell
 # specify a directory for dataset to be downloaded into, else default is ~/data/
-sh data/scripts/VOC2012.sh # <directory>
+	$ sh data/scripts/VOC2012.sh DWONLOAD_PATH
 ```
 
 ## Training SSD
-- First download the fc-reduced [VGG-16](https://arxiv.org/abs/1409.1556) PyTorch base network weights at:              https://s3.amazonaws.com/amdegroot-models/vgg16_reducedfc.pth
-- By default, we assume you have downloaded the file in the `ssd.pytorch/weights` dir:
+- 下载预训练网络参数
+
+	First download the fc-reduced [VGG-16](https://arxiv.org/abs/1409.1556) PyTorch base network weights at:
+https://s3.amazonaws.com/amdegroot-models/vgg16_reducedfc.pth
+
+	By default, we assume you have downloaded the file in the `ssd.pytorch/weights` dir:
 
 ```Shell
-mkdir weights
-cd weights
-wget https://s3.amazonaws.com/amdegroot-models/vgg16_reducedfc.pth
+	$ mkdir weights
+	$ cd weights
+	$ wget https://s3.amazonaws.com/amdegroot-models/vgg16_reducedfc.pth
 ```
 
-- To train SSD using the train script simply specify the parameters listed in `train.py` as a flag or manually change them.
+- 训练模型
+
+To train SSD using the train script simply specify the parameters listed in `train.py` as a flag or manually change them.
 
 ```Shell
-python train.py
+	$ python train.py --voc_root DATASET_PATH
 ```
-
-- Note:
-  * For training, an NVIDIA GPU is strongly recommended for speed.
-  * Currently we only support training on v2 (the newest version).
-  * For instructions on Visdom usage/installation, see the <a href='#installation'>Installation</a> section.
-  * You can pick-up training from a checkpoint by specifying the path as one of the training parameters (again, see `train.py` for options)
-  
 ## Evaluation
 To evaluate a trained network:
 
 ```Shell
-python eval.py
+	$ python eval.py --voc_root DATASET_PATH
 ```
 
 You can specify the parameters listed in the `eval.py` file by flagging them or manually changing them.  
@@ -131,26 +131,3 @@ jupyter notebook
 
 - Now navigate to `demo/demo.ipynb` at http://localhost:8888 (by default) and have at it!
 
-### Try the webcam demo
-- Works on CPU (may have to tweak `cv2.waitkey` for optimal fps) or on an NVIDIA GPU
-- This demo currently requires opencv2+ w/ python bindings and an onboard webcam
-  * You can change the default webcam in `demo/live.py`
-- Install the [imutils](https://github.com/jrosebr1/imutils) package to leverage multi-threading on CPU:
-  * `pip install imutils`
-- Running `python -m demo.live` opens the webcam and begins detecting!
-
-## TODO
-We have accumulated the following to-do list, which you can expect to be done in the very near future
-- Still to come:
-  * Train SSD300 with batch norm
-  * Add support for SSD512 training and testing
-  * Add support for COCO dataset
-  * Create a functional model definition for Sergey Zagoruyko's [functional-zoo](https://github.com/szagoruyko/functional-zoo)
-
-
-## References
-- Wei Liu, et al. "SSD: Single Shot MultiBox Detector." [ECCV2016]((http://arxiv.org/abs/1512.02325)).
-- [Original Implementation (CAFFE)](https://github.com/weiliu89/caffe/tree/ssd)
-- A huge thank you to [Alex Koltun](https://github.com/alexkoltun) and his team at [Webyclip](webyclip.com) for their help in finishing the data augmentation portion.
-- A list of other great SSD ports that were sources of inspiration (especially the Chainer repo): 
-  * [Chainer](https://github.com/Hakuyume/chainer-ssd), [Keras](https://github.com/rykov8/ssd_keras), [MXNet](https://github.com/zhreshold/mxnet-ssd), [Tensorflow](https://github.com/balancap/SSD-Tensorflow) 

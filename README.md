@@ -1,18 +1,11 @@
 # SSD: Single Shot MultiBox Object Detector, in PyTorch
 A [PyTorch](http://pytorch.org/) implementation of [Single Shot MultiBox Detector](http://arxiv.org/abs/1512.02325) from the 2016 paper by Wei Liu, Dragomir Anguelov, Dumitru Erhan, Christian Szegedy, Scott Reed, Cheng-Yang, and Alexander C. Berg.  The official and original Caffe code can be found [here](https://github.com/weiliu89/caffe/tree/ssd). 
 
-## Authors
-
-* [**Max de Groot**](https://github.com/amdegroot)
-* [**Ellis Brown**](http://github.com/ellisbrown)
-
-***Note:*** Unfortunately, this is just a hobby of ours and not a full-time job, so we'll do our best to keep things up to date, but no guarantees.  That being said, thanks to everyone for your continued help and feedback as it is really appreciated. We will try to address everything as soon as possible. 
-
 
 <img align="right" src= "https://github.com/amdegroot/ssd.pytorch/blob/master/doc/ssd.png" height = 400/>
 
 ### Table of Contents
-- <a href='#installation'>Installation</a>
+- <a href='#enironment'>Enironment</a>
 - <a href='#datasets'>Datasets</a>
 - <a href='#training-ssd'>Train</a>
 - <a href='#evaluation'>Evaluate</a>
@@ -26,32 +19,28 @@ A [PyTorch](http://pytorch.org/) implementation of [Single Shot MultiBox Detecto
 &nbsp;
 &nbsp;
 
-## Installation
-- Install [PyTorch](http://pytorch.org/) by selecting your environment on the website and running the appropriate command.
-- Clone this repository.
-  * Note: We currently only support Python 3+.
-- Then download the dataset by following the [instructions](#download-voc2007-trainval--test) below.
-- We now support [Visdom](https://github.com/facebookresearch/visdom) for real-time loss visualization during training! 
-  * To use Visdom in the browser: 
-  ```Shell
-  # First install Python server and client 
-  pip install visdom
-  # Start the server (probably in a screen or tmux)
-  python -m visdom.server
-  ```
-  * Then (during training) navigate to http://localhost:8097/ (see the Train section below for training details).
-- Note: For training, we currently only support [VOC](http://host.robots.ox.ac.uk/pascal/VOC/), but are adding [COCO](http://mscoco.org/) and hopefully [ImageNet](http://www.image-net.org/) soon.
-- UPDATE: We have switched from PIL Image support to cv2. The plan is to create a branch that uses PIL as well.  
+## Enironment
+- 安装或者升级最新版pytorch Install [PyTorch](http://pytorch.org/) 
+- 安装可视化模块visdom(VOC数据集可用)
 
+	We now support [Visdom](https://github.com/facebookresearch/visdom) for real-time loss visualization during training! 
+	  
+	  First install Python server and client 
+	  $ pip install visdom
+	  
+	  Start the server (probably in a screen or tmux)
+	  $ python -m visdom.server
+	  
+	  Then (during training) navigate to http://localhost:8097/ 
+	  
 ## Datasets
-To make things easy, we provide a simple VOC dataset loader that inherits `torch.utils.data.Dataset` making it fully compatible with the `torchvision.datasets` [API](http://pytorch.org/docs/torchvision/datasets.html).
-
 ### VOC Dataset
 ##### Download VOC2007 trainval & test
 
 ```Shell
 # specify a directory for dataset to be downloaded into, else default is ~/data/
-sh data/scripts/VOC2007.sh # <directory>
+	$ sh data/scripts/VOC2007.sh download path
+下载数据好后会自动删除压缩文件
 ```
 
 ##### Download VOC2012 trainval

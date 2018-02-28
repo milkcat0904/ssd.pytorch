@@ -54,10 +54,10 @@ A [PyTorch](http://pytorch.org/) implementation of [Single Shot MultiBox Detecto
 ## Training SSD
 - 下载预训练网络参数
 
-	First download the fc-reduced [VGG-16](https://arxiv.org/abs/1409.1556) PyTorch base network weights at:
+First download the fc-reduced [VGG-16](https://arxiv.org/abs/1409.1556) PyTorch base network weights at:
 https://s3.amazonaws.com/amdegroot-models/vgg16_reducedfc.pth
 
-	By default, we assume you have downloaded the file in the `ssd.pytorch/weights` dir:
+By default, we assume you have downloaded the file in the `ssd.pytorch/weights` dir:
 
 ```Shell
 	$ mkdir weights
@@ -83,19 +83,6 @@ You can specify the parameters listed in the `eval.py` file by flagging them or 
 
 
 <img align="left" src= "https://github.com/amdegroot/ssd.pytorch/blob/master/doc/detection_examples.png">
-
-## Performance
-
-#### VOC2007 Test
-
-##### mAP
-
-| Original | Converted weiliu89 weights | From scratch w/o data aug | From scratch w/ data aug |
-|:-:|:-:|:-:|:-:|
-| 77.2 % | 77.26 % | 58.12% | 77.43 % |
-
-##### FPS
-**GTX 1060:** ~45.45 FPS 
 
 ## Demos
 
